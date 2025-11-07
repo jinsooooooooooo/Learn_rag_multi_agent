@@ -1,0 +1,24 @@
+# 가상 환경 폴더
+.venv/
+
+# 파이썬 캐시 파일 및 폴더
+__pycache__/
+
+# pytest 캐시 폴더
+.pytest_cache/
+
+
+# Jupyter Notebook 체크포인트 폴더
+.ipynb_checkpoints/
+
+# macOS 시스템 파일
+.DS_Store
+
+# vscode 설정 (폴더임을 명확히)
+.vscode/
+
+# 그 외 자주 제외하는 파이썬 관련 항목 (선택 사항)
+*.pyc
+venv/
+build/
+dist/
