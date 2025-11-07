@@ -1,6 +1,6 @@
 <h3> 프로젝트 구조 </h3>
 
-rag_multi_agent_project/
+rag_multi_agent_project/ </br>
 ├── backend/
 │   ├── main.py
 │   ├── core/
