@@ -1,15 +1,24 @@
 # backend/routes/stream_sample_routes.py
+from typing import Optional
 from fastapi import APIRouter, Request
 from fastapi.responses import StreamingResponse
 from agents.stream_sample_agent import StreamSampleAgent
+from pydantic import BaseModel
+
 
 router = APIRouter(tags=["Agent API"])
 # agent = StreamSample() # ⬅️ 전역 인스턴스 제거 (혹은 주석 처리)
 
+
+class PostStreamSampleRequest(BaseModel):
+    user_id: Optional[str] = 'guest'
+    message: Optional[str]
+
+
 @router.post("/stream")
-async def post_stream_sample(request: Request):
-    data = await request.json()
-    user_input = data.get("message", "")
+async def post_stream_sample(data: PostStreamSampleRequest):
+    # data = await request.json()
+    user_input = data.message
 
     agent = StreamSampleAgent() 
     stream_response = agent.handle(user_input)

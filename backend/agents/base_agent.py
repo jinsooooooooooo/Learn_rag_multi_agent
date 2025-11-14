@@ -10,7 +10,7 @@ class BaseAgent(ABC):
         self.role_prompt = role_prompt
 
     @abstractmethod
-    def handle(self, user_input) -> str:
+    def handle(self, data) -> str:
         """각 에이전트별 요청 처리 로직"""
         pass
 
