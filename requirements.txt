@@ -9,3 +9,5 @@ langchain-community
 openai
 # chromadb
 google-genai
+pytest-mock
+pytest
