@@ -1,4 +1,5 @@
 # backend/routes/chat_routes.py
+from typing import Optional
 from fastapi import APIRouter, Request
 from pydantic import BaseModel
 from agents.chat_agent import ChatAgent
@@ -11,13 +12,26 @@ class ChatRequest(BaseModel):
     """
     llm Chat을 보내기이한 메세지 전송
     """
+    # agent_id: str = "ChatAgent"
+    session_id: Optional[str] = None
     user_id: str = 'guest'
+    model: str = 'gpt-4o-mini'
     message: str # 사용자의 입력 메시지 (필수 문자열 필드)
 
+class ChatResponse(BaseModel):
+    agent: str
+    reply: str
+    seesion_id: str    
+    
+
 @router.post("/chat")
-async def chat(payload: ChatRequest):
+async def chat(data: ChatRequest):
     # data = await request.json()
     # user_input = data.get("message", "")
-    user_input = payload.message # ✅ Pydantic 모델을 통해 안전하고 깔끔하게 데이터 접근
-    response = agent.handle(user_input)
-    return {"agent": agent.name, "reply": response}
+    # user_input = data.message
+    response_text, session_id = agent.handle(  data.session_id, data.user_id , data.model, data.message )
+    
+    return {
+            "agent": agent.name,
+            "reply": response_text, 
+            "session_id":session_id}
