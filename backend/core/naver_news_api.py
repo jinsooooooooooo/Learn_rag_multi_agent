@@ -35,6 +35,7 @@ def search_naver_news(keyword, display=5, sort="sim"):
         articles = []
         for item in result['items']:
             articles.append({
+                "keyword":keyword,
                 "title": item['title'].replace("<b>", "").replace("</b>", ""),
                 "link": item['link'],
                 "description": item['description'].replace("<b>", "").replace("</b>", ""),

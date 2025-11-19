@@ -7,13 +7,21 @@ router = APIRouter(tags=["Agent API"])
 agent = NaverNewsAgent()
 
 class NaverNewsRequest(BaseModel):
-    message: Optional[str]
-    keywords: list[str]
+    session_id: Optional[str] = None
     user_id: str
+    model: str
+    keywords: list[str]
+    message: Optional[str] = "검색 뉴스 요약 해줘"
+
 
 @router.post("/naver_news")
-async def naver_news(data: NaverNewsRequest):
+async def naver_news(payload: NaverNewsRequest):
     # data = await request.json()
     # user_input = data.get("message", "")
-    response = agent.handle(data)
-    return {"agent": agent.name, "articles": response}
+    response_articles, respnose_text, session_id = agent.handle(payload)
+    return {
+        "agent": agent.name, 
+        "articles": response_articles, 
+        "reply": respnose_text,
+        "session_id" : session_id
+        }
