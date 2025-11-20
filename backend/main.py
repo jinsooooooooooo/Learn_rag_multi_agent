@@ -10,7 +10,7 @@ from backend.routes.news_routes import router as news_router
 from backend.routes.langchain_chat_routes import router as langchain_router
 from backend.routes.langchain_chatstream_routes import router as langchain_stream_router
 from backend.routes.stream_sample_routes import router as stream_sample_router
-from backend.db_manager import engine
+from backend.database.db_manager import engine
 
 
 # @app.on_event("startup") #on_event(startup / shutdown) 더이상 지원하지 않아 lifespan 으로 변경

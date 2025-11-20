@@ -3,7 +3,7 @@ from typing import Optional
 from fastapi import APIRouter, Depends, Request
 from pydantic import BaseModel
 from backend.agents.chat_agent import ChatAgent
-from backend.db_manager import get_db
+from backend.database.db_manager import get_db
 from sqlalchemy.orm import Session
 
 router = APIRouter(tags=["Agent API"])
