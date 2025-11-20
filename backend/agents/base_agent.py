@@ -10,10 +10,11 @@ class BaseAgent(ABC):
         self.role_prompt = role_prompt
 
     @abstractmethod
-    def handle(self, session_id, user_id, model, message) -> str:
+    def handle(self, db, session_id, user_id, model, message) -> tuple[str,str]:
         """각 에이전트별 요청 처리 로직"""
         print( 
-            f'[_agent.py] >>>>>> handle( self, session_id:str , user_id: str, model:str , message: str)  \n' 
+            f'[_agent.py] >>>>>> handle( self, db: Session, session_id:str , user_id: str, model:str , message: str)  \n' 
+            f'  - db: {db} \n'
             f'  - sesseion_id: {session_id} \n'
             f'  - user_id: {user_id} \n'
             f'  - model: {model} \n'

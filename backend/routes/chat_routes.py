@@ -1,8 +1,10 @@
 # backend/routes/chat_routes.py
 from typing import Optional
-from fastapi import APIRouter, Request
+from fastapi import APIRouter, Depends, Request
 from pydantic import BaseModel
 from backend.agents.chat_agent import ChatAgent
+from backend.db_manager import get_db
+from sqlalchemy.orm import Session
 
 router = APIRouter(tags=["Agent API"])
 agent = ChatAgent()
@@ -25,11 +27,17 @@ class ChatResponse(BaseModel):
     
 
 @router.post("/chat")
-async def chat(data: ChatRequest):
+async def chat(data: ChatRequest, db: Session = Depends(get_db)):
     # data = await request.json()
     # user_input = data.get("message", "")
     # user_input = data.message
-    response_text, session_id = agent.handle(  data.session_id, data.user_id , data.model, data.message )
+    response_text, session_id = agent.handle(  
+        db=db,
+        session_id=data.session_id, 
+        user_id=data.user_id , 
+        model=data.model, 
+        message=data.message 
+    )
     
     return {
             "agent": agent.name,
