@@ -63,7 +63,7 @@ def call_llm( model: str , prompt: str, message: str, temperature: float = 0.3, 
             for item in chat_history:
                 gemini_contents.append(
                     genai_types.Content(
-                        role=item["role"],
+                        role=item["role"] if item["role"].lower() == "user" else "model",
                         parts=[genai_types.Part(text=item["content"])]
                     )
                 )
